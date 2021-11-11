@@ -1,0 +1,34 @@
+{
+	"Level 1":[
+		{
+			"Cube":[
+				{
+					"id" : 0,
+					"name" : "cube1",
+					"XPos" : 13,
+					"YPos" : 4,
+					"ZPos" : -9,
+					"XRot" : 0,
+					"YRot" : 0,
+					"ZRot" : 0,
+					"XScale" : 1,
+					"YScale" : 3,
+					"ZScale" : 3
+				},
+				{
+					"id" : 1,
+					"name" : "cube2",
+					"XPos" : 13,
+					"YPos" : 4,
+					"ZPos" : 11,
+					"XRot" : 0,
+					"YRot" : 0,
+					"ZRot" : 0,
+					"XScale" : 1,
+					"YScale" : 3,
+					"ZScale" : 3
+				}
+			]
+		}
+	]
+}
