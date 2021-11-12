@@ -21,6 +21,8 @@ public class Knife : MonoBehaviour
 
 	public Quaternion currentRotation;
 
+	private Vector3 intitalPosition;
+
 	Quaternion correctRotation;
 
 	private float timeWhenWeStartedFlying;
@@ -29,6 +31,7 @@ public class Knife : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		intitalPosition = transform.position;
         rb = transform.GetComponent<Rigidbody>();
 		StartCoroutine("KnifeMovementandRotation");
     }
@@ -53,14 +56,19 @@ public class Knife : MonoBehaviour
         {
 			rb.isKinematic = true;
             LevelPrefabSpawnFromJSON.Instance.levelnumber = 1;
-			LevelPrefabSpawnFromJSON.Instance.Invoke("Start",1f);
-        }
+			LevelPrefabSpawnFromJSON.Instance.Invoke("Start", 0.1f);
+			StartCoroutine(waitForOneSecond());
+			rb.isKinematic = false;
+			transform.position = intitalPosition;
+			Camera.main.transform.position = CameraController.Instance.initialPosition;
+			
+		}
 	}
 
 
 	IEnumerator waitForOneSecond()
     {
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSecondsRealtime(5);
     }
 
 
@@ -75,7 +83,7 @@ public class Knife : MonoBehaviour
 			if (Input.GetMouseButtonDown(0))
 			{
 				rb.isKinematic = false;
-				rb.velocity = new Vector3(0, 10f, 3);
+				rb.velocity = new Vector3(0, 10f, 5);
 				rb.AddForce(rb.velocity, ForceMode.VelocityChange);
 				yield return new WaitForSeconds(0.2f);
 				enableRotation = true;
