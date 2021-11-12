@@ -27,6 +27,36 @@
 					"XScale" : 1,
 					"YScale" : 3,
 					"ZScale" : 3
+				},
+				{
+					"id" : 2,
+					"name" : "cube3",
+					"XPos" : 13,
+					"YPos" : 7,
+					"ZPos" : -9,
+					"XRot" : 0,
+					"YRot" : 0,
+					"ZRot" : 0,
+					"XScale" : 1,
+					"YScale" : 3,
+					"ZScale" : 3
+				}
+			]
+		},
+		{
+			"Sphere":[
+				{
+					"id" : 0,
+					"name" : "Sphere1",
+					"XPos" : 13,
+					"YPos" : 25,
+					"ZPos" : -22,
+					"XRot" : 0,
+					"YRot" : 0,
+					"ZRot" : 0,
+					"XScale" : 0,
+					"YScale" : 0,
+					"ZScale" : 0
 				}
 			]
 		}
