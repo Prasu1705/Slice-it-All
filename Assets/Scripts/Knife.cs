@@ -49,10 +49,19 @@ public class Knife : MonoBehaviour
 			Debug.Log("Knife is hitting the ground");
 			rb.isKinematic = true;
 		}
+		else if(other.collider.tag == "Finish")
+        {
+			rb.isKinematic = true;
+            LevelPrefabSpawnFromJSON.Instance.levelnumber = 1;
+			LevelPrefabSpawnFromJSON.Instance.Invoke("Start",1f);
+        }
 	}
 
 
-
+	IEnumerator waitForOneSecond()
+    {
+		yield return new WaitForSeconds(1f);
+    }
 
 
 
