@@ -58,9 +58,7 @@ public class Knife : MonoBehaviour
             LevelPrefabSpawnFromJSON.Instance.levelnumber = 1;
 			LevelPrefabSpawnFromJSON.Instance.Invoke("Start", 0.1f);
 			StartCoroutine(waitForOneSecond());
-			rb.isKinematic = false;
-			transform.position = intitalPosition;
-			Camera.main.transform.position = CameraController.Instance.initialPosition;
+			
 			
 		}
 	}
@@ -68,8 +66,11 @@ public class Knife : MonoBehaviour
 
 	IEnumerator waitForOneSecond()
     {
-		yield return new WaitForSecondsRealtime(5);
-    }
+		yield return new WaitForSecondsRealtime(1);
+		rb.isKinematic = false;
+		transform.position = intitalPosition;
+		Camera.main.transform.position = CameraController.Instance.initialPosition;
+	}
 
 
 
