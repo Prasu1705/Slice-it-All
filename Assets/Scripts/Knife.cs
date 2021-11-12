@@ -22,6 +22,7 @@ public class Knife : MonoBehaviour
 	public Quaternion currentRotation;
 
 	private Vector3 intitalPosition;
+	private Quaternion initialRotation;
 
 	Quaternion correctRotation;
 
@@ -32,6 +33,7 @@ public class Knife : MonoBehaviour
 	void Start()
 	{
 		intitalPosition = transform.position;
+		initialRotation = transform.rotation;
         rb = transform.GetComponent<Rigidbody>();
 		StartCoroutine("KnifeMovementandRotation");
     }
@@ -55,6 +57,7 @@ public class Knife : MonoBehaviour
 		else if(other.collider.tag == "Finish")
         {
 			rb.isKinematic = true;
+			enableRotation = false;
             LevelPrefabSpawnFromJSON.Instance.levelnumber = 1;
 			LevelPrefabSpawnFromJSON.Instance.Invoke("Start", 0.1f);
 			StartCoroutine(waitForOneSecond());
@@ -69,6 +72,7 @@ public class Knife : MonoBehaviour
 		yield return new WaitForSecondsRealtime(1);
 		rb.isKinematic = false;
 		transform.position = intitalPosition;
+		transform.rotation = initialRotation;
 		Camera.main.transform.position = CameraController.Instance.initialPosition;
 	}
 
