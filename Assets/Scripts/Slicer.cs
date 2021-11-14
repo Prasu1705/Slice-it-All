@@ -7,7 +7,7 @@ public class Slicer : MonoBehaviour
     public LayerMask sliceMask;
     public bool isTouched;
     public GameObject knifeObject;
-
+    public Material slicedObjectInnerMaterial;
 
   
     private void Update()
@@ -24,15 +24,16 @@ public class Slicer : MonoBehaviour
 
                 GameObject upperHullGameobject = slicedObject.CreateUpperHull(objectToBeSliced.gameObject, materialAfterSlice);
                 GameObject lowerHullGameobject = slicedObject.CreateLowerHull(objectToBeSliced.gameObject, materialAfterSlice);
-
                 upperHullGameobject.transform.position = objectToBeSliced.transform.position;
                 lowerHullGameobject.transform.position = objectToBeSliced.transform.position;
+                upperHullGameobject.tag = "Sliceable";
+                lowerHullGameobject.tag = "Sliceable";
 
                 MakeItPhysical(upperHullGameobject);
                 MakeItPhysical(lowerHullGameobject);
 
                 Destroy(objectToBeSliced.gameObject);
-
+   
             }
         }
     }

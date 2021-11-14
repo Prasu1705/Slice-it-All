@@ -19,6 +19,8 @@ public class Knife : MonoBehaviour
 	public float currentLevelNumber;
 	public float rotationSmoothness = 2f;
 
+	public GameObject canvas;
+
 	public Quaternion currentRotation;
 
 	private Vector3 intitalPosition;
@@ -61,6 +63,11 @@ public class Knife : MonoBehaviour
 			LevelPrefabSpawnFromJSON.Instance.levelnumber +=1;
 			rb.isKinematic = true;
 			enableRotation = false;
+			GameObject[] destroySliceables = GameObject.FindGameObjectsWithTag("Sliceable");
+			foreach(GameObject sliceable in destroySliceables)
+			{
+				Destroy(sliceable);
+			}
 			LevelPrefabSpawnFromJSON.Instance.Invoke("Start", 0.1f);
 			StartCoroutine(waitForOneSecond());
 			
@@ -75,6 +82,7 @@ public class Knife : MonoBehaviour
 		transform.position = intitalPosition;
 		transform.rotation = initialRotation;
 		Camera.main.transform.position = CameraController.Instance.initialPosition;
+		canvas.SetActive(true);
 	}
 
 
@@ -88,6 +96,7 @@ public class Knife : MonoBehaviour
         {
 			if (Input.GetMouseButtonDown(0))
 			{
+				canvas.SetActive(false);
 				rb.isKinematic = false;
 				rb.velocity = new Vector3(0, 10f, 5);
 				rb.AddForce(rb.velocity, ForceMode.VelocityChange);

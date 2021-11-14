@@ -691,7 +691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce88fd53872e304b8cdaa1765035765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelnumber: 0
+  levelnumber: 1
   level: 
   cubePrefab: {fileID: 9040898006784436627, guid: d1d849bd60785b54582cd21a50f325a3, type: 3}
   spherePrefab: {fileID: 2618706195765539053, guid: 59edecffb990be8489d746098ce7ff68, type: 3}
@@ -892,6 +892,7 @@ MonoBehaviour:
   rotation: 0
   maxRotation: 270
   rotationSpeed: 700
+  currentLevelNumber: 0
   rotationSmoothness: 0.3
   currentRotation: {x: 0, y: 0, z: 0, w: 0}
   enableRotation: 0
