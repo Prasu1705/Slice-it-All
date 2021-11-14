@@ -26,7 +26,7 @@ public class Knife : MonoBehaviour
 
 	Quaternion correctRotation;
 
-	private float timeWhenWeStartedFlying;
+	//public int currentLevelNumber;
 
 	public bool enableRotation = false;
 	// Use this for initialization
@@ -35,6 +35,7 @@ public class Knife : MonoBehaviour
 		intitalPosition = transform.position;
 		initialRotation = transform.rotation;
         rb = transform.GetComponent<Rigidbody>();
+		rb.isKinematic = true;
 		StartCoroutine("KnifeMovementandRotation");
     }
 
@@ -56,9 +57,9 @@ public class Knife : MonoBehaviour
 		}
 		else if(other.collider.tag == "Finish")
         {
+			//LevelPrefabSpawnFromJSON.Instance.levelnumber += 1;
 			rb.isKinematic = true;
 			enableRotation = false;
-            LevelPrefabSpawnFromJSON.Instance.levelnumber = 1;
 			LevelPrefabSpawnFromJSON.Instance.Invoke("Start", 0.1f);
 			StartCoroutine(waitForOneSecond());
 			
@@ -70,7 +71,6 @@ public class Knife : MonoBehaviour
 	IEnumerator waitForOneSecond()
     {
 		yield return new WaitForSecondsRealtime(1);
-		rb.isKinematic = false;
 		transform.position = intitalPosition;
 		transform.rotation = initialRotation;
 		Camera.main.transform.position = CameraController.Instance.initialPosition;

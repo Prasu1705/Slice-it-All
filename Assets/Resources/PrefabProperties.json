@@ -60,9 +60,7 @@
 				}
 			]
 		}
-	]
-},
-{
+	],
 	"Level 2":[
 		{
 			"Cube":[
@@ -71,7 +69,7 @@
 					"name" : "cube1",
 					"XPos" : 13,
 					"YPos" : 4,
-					"ZPos" : -9,
+					"ZPos" : -5,
 					"XRot" : 0,
 					"YRot" : 0,
 					"ZRot" : 0,
@@ -84,7 +82,7 @@
 					"name" : "cube2",
 					"XPos" : 13,
 					"YPos" : 4,
-					"ZPos" : 11,
+					"ZPos" : 9,
 					"XRot" : 0,
 					"YRot" : 0,
 					"ZRot" : 0,
@@ -97,7 +95,7 @@
 					"name" : "cube3",
 					"XPos" : 13,
 					"YPos" : 7,
-					"ZPos" : -9,
+					"ZPos" : -5,
 					"XRot" : 0,
 					"YRot" : 0,
 					"ZRot" : 0,
@@ -114,7 +112,7 @@
 					"name" : "Sphere1",
 					"XPos" : 13,
 					"YPos" : 25,
-					"ZPos" : -22,
+					"ZPos" : -17,
 					"XRot" : 0,
 					"YRot" : 0,
 					"ZRot" : 0,

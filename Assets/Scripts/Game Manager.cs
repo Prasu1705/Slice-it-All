@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum GameState {Active, Pause, Lose, Win};
-public delegate void onStateChangeHandler();
+public enum GameState {None, Active, Pause, Restart};
+public delegate void GameStateHandler();
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public GameState gameState;
-    public event onStateChangeHandler onStateChange;
+    public delegate void GameStates(GameState gameState);
+    public event GameStates onStateChange;
+    private GameState gameState;
     void Awake()
     {
         if(instance == null)
@@ -22,9 +23,8 @@ public class GameManager : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-   public void SetGameState(GameState state)
-   {
-        this.gameState = state;
-
-   }
+    private void Start()
+    {
+        gameState = GameState.None;
+    }
 }

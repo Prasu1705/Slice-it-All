@@ -11,6 +11,7 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
     private string jsonString;
     private JsonData prefabData;
     public int levelnumber;
+    public string level;
 
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
@@ -39,9 +40,10 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
     {
         jsonString = File.ReadAllText(Application.dataPath + "/Resources/PrefabProperties.json");
         prefabData = JsonMapper.ToObject(jsonString);
-        levelnumber = 0;
+        levelnumber += 1;
+        level = "Level " + levelnumber.ToString();
         //level-no(key value),constvalue=0,levelprefab(key value),cube-prop(dictionary in a array),property (key value)
-        Debug.Log(prefabData[0][1]["Sphere"].Count);
+        Debug.Log(level);
         SpawnPrefab("Cube", cubePrefab);
         SpawnPrefab("Sphere", spherePrefab);
     }
@@ -58,17 +60,17 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
             PrefabId = 1;
         }
 
-        for (int i = 0; i < prefabData[levelnumber][PrefabId][prefabType].Count; i++)
+        for (int i = 0; i < prefabData[level][PrefabId][prefabType].Count; i++)
         {
-            spawnPosition.x = (int)prefabData[levelnumber][PrefabId][prefabType][i]["XPos"];
-            spawnPosition.y = (int)prefabData[levelnumber][PrefabId][prefabType][i]["YPos"];
-            spawnPosition.z = (int)prefabData[levelnumber][PrefabId][prefabType][i]["ZPos"];
-            spawnRotation.x = (int)prefabData[levelnumber][PrefabId][prefabType][i]["XRot"];
-            spawnRotation.y = (int)prefabData[levelnumber][PrefabId][prefabType][i]["YRot"];
-            spawnRotation.z = (int)prefabData[levelnumber][PrefabId][prefabType][i]["ZRot"];
-            spawnScale.x = (int)prefabData[levelnumber][PrefabId][prefabType][i]["XScale"];
-            spawnScale.y = (int)prefabData[levelnumber][PrefabId][prefabType][i]["YScale"];
-            spawnScale.z = (int)prefabData[levelnumber][PrefabId][prefabType][i]["ZScale"];
+            spawnPosition.x = (int)prefabData[level][PrefabId][prefabType][i]["XPos"];
+            spawnPosition.y = (int)prefabData[level][PrefabId][prefabType][i]["YPos"];
+            spawnPosition.z = (int)prefabData[level][PrefabId][prefabType][i]["ZPos"];
+            spawnRotation.x = (int)prefabData[level][PrefabId][prefabType][i]["XRot"];
+            spawnRotation.y = (int)prefabData[level][PrefabId][prefabType][i]["YRot"];
+            spawnRotation.z = (int)prefabData[level][PrefabId][prefabType][i]["ZRot"];
+            spawnScale.x = (int)prefabData[level][PrefabId][prefabType][i]["XScale"];
+            spawnScale.y = (int)prefabData[level][PrefabId][prefabType][i]["YScale"];
+            spawnScale.z = (int)prefabData[level][PrefabId][prefabType][i]["ZScale"];
             GameObject prefab = Instantiate(objectPrefab, spawnPosition, spawnRotation);
             prefab.transform.localScale += spawnScale;
 
