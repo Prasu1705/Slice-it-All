@@ -10,7 +10,7 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
 
     private string jsonString;
     private JsonData prefabData;
-    public int levelnumber;
+    public int levelnumber = 1;
     public string level;
 
     private Vector3 spawnPosition;
@@ -40,8 +40,7 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
     {
         jsonString = File.ReadAllText(Application.dataPath + "/Resources/PrefabProperties.json");
         prefabData = JsonMapper.ToObject(jsonString);
-        levelnumber += 1;
-        level = "Level " + levelnumber.ToString();
+        level = "Level " + ((int)levelnumber).ToString();
         //level-no(key value),constvalue=0,levelprefab(key value),cube-prop(dictionary in a array),property (key value)
         Debug.Log(level);
         SpawnPrefab("Cube", cubePrefab);

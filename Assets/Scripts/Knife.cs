@@ -16,7 +16,7 @@ public class Knife : MonoBehaviour
 	public float rotation;
 	public float maxRotation=270;
 	public float rotationSpeed = 100;
-
+	public float currentLevelNumber;
 	public float rotationSmoothness = 2f;
 
 	public Quaternion currentRotation;
@@ -26,7 +26,7 @@ public class Knife : MonoBehaviour
 
 	Quaternion correctRotation;
 
-	//public int currentLevelNumber;
+	
 
 	public bool enableRotation = false;
 	// Use this for initialization
@@ -57,7 +57,8 @@ public class Knife : MonoBehaviour
 		}
 		else if(other.collider.tag == "Finish")
         {
-			//LevelPrefabSpawnFromJSON.Instance.levelnumber += 1;
+			currentLevelNumber += 1;
+			LevelPrefabSpawnFromJSON.Instance.levelnumber +=1;
 			rb.isKinematic = true;
 			enableRotation = false;
 			LevelPrefabSpawnFromJSON.Instance.Invoke("Start", 0.1f);
