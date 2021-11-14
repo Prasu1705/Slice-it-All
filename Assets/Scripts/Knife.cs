@@ -9,17 +9,13 @@ public class Knife : MonoBehaviour
 	public Rigidbody rb;
 
 	public float upForce = 5f, sideForce = 10f;
-	public float torque = 20f;
-
-	public int clickCount = 0;
-	public bool isMouseclicked = false;
 	public float rotation;
 	public float maxRotation=270;
 	public float rotationSpeed = 100;
-	public float currentLevelNumber;
 	public float rotationSmoothness = 2f;
 
 	public GameObject canvas;
+	public GameObject GameOverScreen;
 
 	public Quaternion currentRotation;
 
@@ -57,9 +53,8 @@ public class Knife : MonoBehaviour
 			Debug.Log("Knife is hitting the ground");
 			rb.isKinematic = true;
 		}
-		else if(other.collider.tag == "Finish")
+		if(other.collider.tag == "Finish")
         {
-			currentLevelNumber += 1;
 			LevelPrefabSpawnFromJSON.Instance.levelnumber +=1;
 			rb.isKinematic = true;
 			enableRotation = false;
@@ -70,9 +65,13 @@ public class Knife : MonoBehaviour
 			}
 			LevelPrefabSpawnFromJSON.Instance.Invoke("Start", 0.1f);
 			StartCoroutine(waitForOneSecond());
-			
-			
 		}
+		if(other.collider.tag == "GameOver")
+        {
+			GameOverScreen.SetActive(true);
+			Time.timeScale = 0;
+			
+        }
 	}
 
 

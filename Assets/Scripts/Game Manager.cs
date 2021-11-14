@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum GameState {None, Active, Pause, Restart};
+public enum GameState {None, Playing, Win, Lose, Restart};
 public delegate void GameStateHandler();
 public class GameManager : MonoBehaviour
 {
@@ -34,21 +34,15 @@ public class GameManager : MonoBehaviour
     {
         switch(gameState)
         {
-            case GameState.Active:
+            case GameState.Playing:
                 Time.timeScale = 1;
                 break;
-            case GameState.Pause:
-                Time.timeScale = 0;
-                break;
-            default:
+            case GameState.Win:
                 Time.timeScale = 1;
                 break;
         }
     }
 
-    private void GameActive()
-    {
-        onGameStateChange?.Invoke(GameState.Active);
-    }
+    
 
 }

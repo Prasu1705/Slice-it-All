@@ -19,6 +19,7 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
 
     public GameObject cubePrefab;
     public GameObject spherePrefab;
+    public GameObject GameOverObstaclePrefab;
 
     public int PrefabId;
     //public GameObject spherePrefab;
@@ -45,6 +46,7 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
         Debug.Log(level);
         SpawnPrefab("Cube", cubePrefab);
         SpawnPrefab("Sphere", spherePrefab);
+        SpawnPrefab("GameOverObstacle", GameOverObstaclePrefab);
     }
 
 
@@ -57,6 +59,10 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
         else if(prefabType == "Sphere")
         {
             PrefabId = 1;
+        }
+        else if(prefabType == "GameOverObstacle")
+        {
+            PrefabId = 2;
         }
 
         for (int i = 0; i < prefabData[level][PrefabId][prefabType].Count; i++)

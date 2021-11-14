@@ -59,6 +59,23 @@
 					"ZScale" : 0
 				}
 			]
+		},
+		{
+			"GameOverObstacle":[
+				{
+					"id" : 0,
+					"name" : "GameOverObstacle1",
+					"XPos" : 12,
+					"YPos" : 3,
+					"ZPos" : 5,
+					"XRot" : 0,
+					"YRot" : 0,
+					"ZRot" : 0,
+					"XScale" : 0,
+					"YScale" : 0,
+					"ZScale" : 0
+				}
+			]
 		}
 	],
 	"Level 2":[
