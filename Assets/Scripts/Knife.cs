@@ -97,7 +97,7 @@ public class Knife : MonoBehaviour
 			{
 				canvas.SetActive(false);
 				rb.isKinematic = false;
-				rb.velocity = new Vector3(0, 10f, 5);
+				rb.velocity = new Vector3(0, 12f, 5);
 				rb.AddForce(rb.velocity, ForceMode.VelocityChange);
 				yield return new WaitForSeconds(0.2f);
 				enableRotation = true;
@@ -122,7 +122,7 @@ public class Knife : MonoBehaviour
 
 					
 					rotation = maxRotation;
-					rb.velocity = new Vector3(0, -6f, 0);
+					rb.velocity = new Vector3(0, -10f, 0);
 					rb.AddForce(rb.velocity, ForceMode.VelocityChange);
 				}
 				

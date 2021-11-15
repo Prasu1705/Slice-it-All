@@ -67,9 +67,9 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
 
         for (int i = 0; i < prefabData[level][PrefabId][prefabType].Count; i++)
         {
-            spawnPosition.x = (int)prefabData[level][PrefabId][prefabType][i]["XPos"];
-            spawnPosition.y = (int)prefabData[level][PrefabId][prefabType][i]["YPos"];
-            spawnPosition.z = (int)prefabData[level][PrefabId][prefabType][i]["ZPos"];
+            spawnPosition.x = (float)(double)prefabData[level][PrefabId][prefabType][i]["XPos"];
+            spawnPosition.y = (float)(double)prefabData[level][PrefabId][prefabType][i]["YPos"];
+            spawnPosition.z = (float)(double)prefabData[level][PrefabId][prefabType][i]["ZPos"];
             spawnRotation.x = (int)prefabData[level][PrefabId][prefabType][i]["XRot"];
             spawnRotation.y = (int)prefabData[level][PrefabId][prefabType][i]["YRot"];
             spawnRotation.z = (int)prefabData[level][PrefabId][prefabType][i]["ZRot"];
