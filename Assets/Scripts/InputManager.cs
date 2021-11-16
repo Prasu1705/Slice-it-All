@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour
     public delegate void onClickEvent();
     public event onClickEvent onClick;
 
-    public bool isClicked = false;
+    public bool isClicked;
 
 
     private void Awake()
@@ -36,6 +36,7 @@ public class InputManager : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
+            isClicked = true;
             knife.rb.isKinematic = false;
             knife.isGrounded = false;
             Click();

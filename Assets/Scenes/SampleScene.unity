@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 89877417}
+  - component: {fileID: 89877418}
   m_Layer: 0
   m_Name: Input Manager
   m_TagString: Untagged
@@ -153,6 +154,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &89877418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89877416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3eb5290ec37f6a419a0448762d4ceb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knife: {fileID: 919132148733795192}
+  isClicked: 0
 --- !u!1 &114174047
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,8 +446,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659550832}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -3.24, z: -0.09}
-  m_LocalScale: {x: 0.41, y: 0.15, z: 0.05}
+  m_LocalPosition: {x: -0, y: -2.52, z: -0.14}
+  m_LocalScale: {x: 0.08, y: 0.54, z: 0.05}
   m_Children: []
   m_Father: {fileID: 1762628174}
   m_RootOrder: 1
@@ -477,7 +492,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659550832}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -746,7 +761,7 @@ BoxCollider:
   m_GameObject: {fileID: 919132148733795190}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 695.29456, y: 7.30858, z: 118.691605}
   m_Center: {x: 356.21054, y: -10.788809, z: 14.262213}
@@ -1050,7 +1065,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1762628175}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Knife, Assembly-CSharp
         m_MethodName: Restart
         m_Mode: 1
@@ -1340,7 +1355,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6097047da47b0446a4baff7fb5718d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knife: {fileID: 1762628175}
+  knife: {fileID: 919132148733795192}
+  isStart: 0
+  isLevelStart: 0
+  isGameOver: 0
+  isRevive: 0
 --- !u!1 &1518438934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1508,7 +1527,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1762628174}
-  - component: {fileID: 1762628175}
   - component: {fileID: 1762628176}
   - component: {fileID: 1762628177}
   m_Layer: 0
@@ -1534,33 +1552,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1762628175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1762628173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a43191e8cc66ba74e8c32f7023a1f6f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 1762628176}
-  upForce: 10
-  sideForce: 3
-  rotation: 0
-  maxRotation: 270
-  rotationSpeed: 700
-  rotationSmoothness: 0.3
-  canvas: {fileID: 856919949}
-  GameOverScreen: {fileID: 1401571202}
-  currentRotation: {x: 0, y: 0, z: 0, w: 0}
-  enableRotation: 0
-  isTransitioning: 0
-  isWon: 0
-  isLost: 0
-  isRestarting: 0
 --- !u!54 &1762628176
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1576,7 +1567,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 98
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &1762628177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1778,6 +1769,7 @@ GameObject:
   - component: {fileID: 1711813856332151459}
   - component: {fileID: 786851374}
   - component: {fileID: 919132148733795191}
+  - component: {fileID: 919132148733795192}
   m_Layer: 0
   m_Name: Assault Knife
   m_TagString: Untagged
@@ -1794,11 +1786,40 @@ MeshCollider:
   m_GameObject: {fileID: 919132148733795190}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7233159054065966114, guid: d209d4f127e35f140b4f2efd48f306df, type: 3}
+--- !u!114 &919132148733795192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148733795190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a43191e8cc66ba74e8c32f7023a1f6f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeState: 0
+  rb: {fileID: 1762628176}
+  upForce: 15
+  sideForce: 3
+  rotation: 0
+  maxRotation: 270
+  rotationSpeed: 700
+  rotationSmoothness: 0.3
+  canvas: {fileID: 856919949}
+  GameOverScreen: {fileID: 1401571202}
+  currentRotation: {x: 0, y: 0, z: 0, w: 0}
+  enableRotation: 0
+  isTransitioning: 0
+  isWon: 0
+  isLost: 0
+  isRestarting: 0
+  isGrounded: 0
 --- !u!23 &1711813856332151459
 MeshRenderer:
   m_ObjectHideFlags: 0

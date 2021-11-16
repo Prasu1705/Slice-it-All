@@ -58,9 +58,9 @@ public class Knife : MonoBehaviour
 	{
 		GameManager.Instance.CURRENTGAMEPLAYSTATE = GameManager.GamePlayState.Game;
 		InputManager.Instance.onClick += KnifeFlip;
-		intitalPosition = transform.position;
-		initialRotation = transform.rotation;
-        rb = transform.GetComponent<Rigidbody>();
+		intitalPosition = transform.parent.position;
+		initialRotation = transform.parent.rotation;
+        rb = transform.parent.GetComponent<Rigidbody>();
 		rb.isKinematic = true;
 		StartCoroutine(KnifeMovementandRotation());
 	}
@@ -68,17 +68,13 @@ public class Knife : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		
 
+		
 		
     }
 
 	public void KnifeFlip()
     {
-		if (isGrounded == false && gameObject.transform.GetChild(0).GetComponent<MeshCollider>().enabled == false)
-        {
-			gameObject.transform.GetChild(0).GetComponent<MeshCollider>().enabled = true;
-		}
 		StartCoroutine(KnifeFlipOnClick());
 	}
 
@@ -121,15 +117,16 @@ public class Knife : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-		if (collision.collider.tag == "Ground" && !isGrounded)
-		{
-			Debug.Log("Knife is hitting the ground");
-			gameObject.transform.GetChild(0).GetComponent<MeshCollider>().enabled = false;
+        if (collision.collider.tag == "Ground" && !isGrounded)
+        {
+            Debug.Log("Knife is hitting the ground");
 			isGrounded = true;
-			rb.isKinematic = true;
-			
-		}
-		if (collision.collider.tag == "Finish")
+            enableRotation = false;
+            rb.isKinematic = true;
+			gameObject.GetComponent<BoxCollider>().enabled = false;
+
+        }
+        if (collision.collider.tag == "Finish")
 		{
 			isTransitioning = true;
 			GameManager.Instance.CURRENTGAMEPLAYSTATE = GameManager.GamePlayState.Win;
@@ -170,8 +167,8 @@ public class Knife : MonoBehaviour
 	IEnumerator waitForOneSecond()
     {
 		yield return new WaitForSecondsRealtime(0.1f);
-		transform.position = intitalPosition;
-		transform.rotation = initialRotation;
+		transform.parent.position = intitalPosition;
+		transform.parent.rotation = initialRotation;
 		Camera.main.transform.position = CameraController.Instance.initialPosition;
 		canvas.SetActive(true);
 	}
@@ -187,18 +184,18 @@ public class Knife : MonoBehaviour
         {
 
 			rotation = rotationSpeed * Time.deltaTime;
-			if (enableRotation)
+			if (enableRotation && !isGrounded)
 			{
 				if (maxRotation > rotation)
 				{
 					maxRotation -= rotation;
-					transform.Rotate(rotation, 0, 0);
+					transform.parent.Rotate(rotation, 0, 0);
 					
 				}
 				else
 				{
 					enableRotation = false;
-					maxRotation = 270 - transform.eulerAngles.x;
+					maxRotation = 270 - transform.parent.eulerAngles.x;
 					if(maxRotation <0)
                     {
 						maxRotation += 360;
@@ -213,14 +210,14 @@ public class Knife : MonoBehaviour
 			}
 			else
 			{
-				if (rb.isKinematic == false && enableRotation == false && isTransitioning == false)
+				if (rb.isKinematic == false && enableRotation == false && isTransitioning == false && !isGrounded)
 				{
-					currentRotation = Quaternion.Euler(transform.eulerAngles);
+					currentRotation = Quaternion.Euler(transform.parent.eulerAngles);
 					correctRotation = Quaternion.Euler(Vector3.zero);
 					currentRotation = Quaternion.Slerp(currentRotation, correctRotation, Time.deltaTime * rotationSmoothness);
 					currentRotation.y = 0;
 					currentRotation.z = 0;
-					transform.rotation = currentRotation;
+					transform.parent.rotation = currentRotation;
 					//rb.AddForce(rb.velocity, ForceMode.Impulse);
 				}
 			}
