@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,27 @@ using UnityEngine.SceneManagement;
 
 public class Knife : MonoBehaviour
 {
+	public enum KnifeState { Idle, Flip, Hit};
+	public KnifeState knifeState;
+	public KnifeState KNIFESTATE {  get { return knifeState; } set { knifeState = value; SwitchKnifeState(); } }
 
-	public Rigidbody rb;
+    private void SwitchKnifeState()
+    {
+        switch (knifeState)
+        {
+            case KnifeState.Idle:
+				rb.isKinematic = true;
+				break;
+            case KnifeState.Flip:
+                break;
+            case KnifeState.Hit:
+                break;
+            default:
+                break;
+        }
+    }
+
+    public Rigidbody rb;
 
 	public float upForce = 5f, sideForce = 10f;
 	public float rotation;
@@ -27,15 +47,23 @@ public class Knife : MonoBehaviour
 	
 
 	public bool enableRotation = false;
+	public bool isTransitioning = false;
+	public bool isWon = false;
+	public bool isLost = false;
+	public bool isRestarting = false;
+	public bool isGrounded = false;
+
 	// Use this for initialization
 	void Start()
 	{
+		GameManager.Instance.CURRENTGAMEPLAYSTATE = GameManager.GamePlayState.Game;
+		InputManager.Instance.onClick += KnifeFlip;
 		intitalPosition = transform.position;
 		initialRotation = transform.rotation;
         rb = transform.GetComponent<Rigidbody>();
 		rb.isKinematic = true;
-		StartCoroutine("KnifeMovementandRotation");
-    }
+		StartCoroutine(KnifeMovementandRotation());
+	}
 
 	// Update is called once per frame
 	void Update()
@@ -45,39 +73,103 @@ public class Knife : MonoBehaviour
 		
     }
 
+	public void KnifeFlip()
+    {
+		if (isGrounded == false && gameObject.transform.GetChild(0).GetComponent<MeshCollider>().enabled == false)
+        {
+			gameObject.transform.GetChild(0).GetComponent<MeshCollider>().enabled = true;
+		}
+		StartCoroutine(KnifeFlipOnClick());
+	}
+
+	IEnumerator KnifeFlipOnClick()
+    {
+		
+		if (!isTransitioning)
+        {
+			
+			canvas.SetActive(false);
+			
+			//isGrounded = false;
+			rb.velocity = new Vector3(0, 13f, 4);
+			rb.AddForce(rb.velocity, ForceMode.VelocityChange);
+			yield return new WaitForSeconds(0.2f);
+			
+			enableRotation = true;
+
+			
+		}
+
+		
+	}
 
 	private void OnCollisionStay(Collision other)
 	{
-		if (other.collider.tag == "Ground")
-		{
-			Debug.Log("Knife is hitting the ground");
-			rb.isKinematic = true;
-		}
-		if(other.collider.tag == "Finish")
-        {
-			LevelPrefabSpawnFromJSON.Instance.levelnumber +=1;
-			rb.isKinematic = true;
-			enableRotation = false;
-			GameObject[] destroySliceables = GameObject.FindGameObjectsWithTag("Sliceable");
-			foreach(GameObject sliceable in destroySliceables)
-			{
-				Destroy(sliceable);
-			}
-			LevelPrefabSpawnFromJSON.Instance.Invoke("Start", 0.1f);
-			StartCoroutine(waitForOneSecond());
-		}
+		
+		
 		if(other.collider.tag == "GameOver")
         {
-			GameOverScreen.SetActive(true);
-			Time.timeScale = 0;
-			
-        }
+			isLost = true;
+			isTransitioning = true;
+			enableRotation = false;
+			GameManager.Instance.CURRENTGAMEPLAYSTATE = GameManager.GamePlayState.Lose;
+			//InitialLevelSetup();
+		}
 	}
 
 
+
+    private void OnCollisionEnter(Collision collision)
+    {
+		if (collision.collider.tag == "Ground" && !isGrounded)
+		{
+			Debug.Log("Knife is hitting the ground");
+			gameObject.transform.GetChild(0).GetComponent<MeshCollider>().enabled = false;
+			isGrounded = true;
+			rb.isKinematic = true;
+			
+		}
+		if (collision.collider.tag == "Finish")
+		{
+			isTransitioning = true;
+			GameManager.Instance.CURRENTGAMEPLAYSTATE = GameManager.GamePlayState.Win;
+
+		}
+	}
+
+
+
+    public void DestroyPreviousLevelObjects()
+    {
+		GameObject[] destroySliceables = GameObject.FindGameObjectsWithTag("Sliceable");
+		foreach (GameObject sliceable in destroySliceables)
+		{
+			Destroy(sliceable);
+		}
+	}
+
+
+	public void InitialLevelSetup()
+    {
+		Time.timeScale = 1;
+		isTransitioning = false;
+		enableRotation = false;
+		rb.isKinematic = true;
+		DestroyPreviousLevelObjects();
+		LevelPrefabSpawnFromJSON.Instance.Invoke("Start", 0.1f);
+		StartCoroutine(waitForOneSecond());
+	}
+
+	public void Restart()
+    {
+		GameManager.Instance.CURRENTGAMEPLAYSTATE = GameManager.GamePlayState.Restart;
+	}
+
+	
+
 	IEnumerator waitForOneSecond()
     {
-		yield return new WaitForSecondsRealtime(1);
+		yield return new WaitForSecondsRealtime(0.1f);
 		transform.position = intitalPosition;
 		transform.rotation = initialRotation;
 		Camera.main.transform.position = CameraController.Instance.initialPosition;
@@ -93,15 +185,7 @@ public class Knife : MonoBehaviour
     {
 		while(true)
         {
-			if (Input.GetMouseButtonDown(0))
-			{
-				canvas.SetActive(false);
-				rb.isKinematic = false;
-				rb.velocity = new Vector3(0, 12f, 5);
-				rb.AddForce(rb.velocity, ForceMode.VelocityChange);
-				yield return new WaitForSeconds(0.2f);
-				enableRotation = true;
-			}
+
 			rotation = rotationSpeed * Time.deltaTime;
 			if (enableRotation)
 			{
@@ -122,14 +206,14 @@ public class Knife : MonoBehaviour
 
 					
 					rotation = maxRotation;
-					rb.velocity = new Vector3(0, -10f, 0);
+					rb.velocity = new Vector3(0, -10f, 2.75f);
 					rb.AddForce(rb.velocity, ForceMode.VelocityChange);
 				}
 				
 			}
 			else
 			{
-				if (rb.isKinematic == false && enableRotation == false)
+				if (rb.isKinematic == false && enableRotation == false && isTransitioning == false)
 				{
 					currentRotation = Quaternion.Euler(transform.eulerAngles);
 					correctRotation = Quaternion.Euler(Vector3.zero);

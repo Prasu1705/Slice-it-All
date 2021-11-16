@@ -10,7 +10,7 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
 
     private string jsonString;
     private JsonData prefabData;
-    public int levelnumber = 1;
+    public int levelnumber;
     public string level;
 
     private Vector3 spawnPosition;
@@ -39,6 +39,7 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         jsonString = File.ReadAllText(Application.dataPath + "/Resources/PrefabProperties.json");
         prefabData = JsonMapper.ToObject(jsonString);
         level = "Level " + ((int)levelnumber).ToString();
