@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
                 {
                     knife.isLost = false;
                     //knife.isRestarting = true;
-                    knife.GameOverScreen.SetActive(false);
+                    UIManager.Instance.GameOverCanvas.SetActive(false);
                     knife.InitialLevelSetup();
                 }
                 break;
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
     IEnumerator GameCompleted()
     {
         knife.rb.isKinematic = true;
-        LevelPrefabSpawnFromJSON.Instance.levelnumber += 1;
+        PlayerData.Instance.LEVEL += 1;
         knife.InitialLevelSetup();
         yield return null;
 
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
     IEnumerator GameFailed()
     {
         knife.isTransitioning = true;
-        knife.GameOverScreen.SetActive(true);
+        UIManager.Instance.GameOverCanvas.SetActive(true);
         Time.timeScale = 0;
         yield return null;
     }

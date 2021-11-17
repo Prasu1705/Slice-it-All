@@ -1,8 +1,11 @@
 ﻿
 using UnityEngine;
 using EzySlice;
+
+using UnityEngine.UI;
 public class Slicer : MonoBehaviour
 {
+    public Knife knife;
     public Material materialAfterSlice;
     public LayerMask sliceMask;
     public bool isTouched;
@@ -28,7 +31,10 @@ public class Slicer : MonoBehaviour
                 lowerHullGameobject.transform.position = objectToBeSliced.transform.position;
                 upperHullGameobject.tag = "Sliceable";
                 lowerHullGameobject.tag = "Sliceable";
-
+                knife.Score = PlayerData.Instance.SCORE;
+                knife.Score += 1;
+                knife.PlayerPrefsScore();
+                UIManager.Instance.Score.text = "Score : " + knife.Score.ToString();
                 MakeItPhysical(upperHullGameobject);
                 MakeItPhysical(lowerHullGameobject);
 
