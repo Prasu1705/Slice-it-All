@@ -8,6 +8,8 @@ TagManager:
   - Ground
   - Sliceable
   - GameOver
+  - SliceableSphere
+  - SliceableCube
   layers:
   - Default
   - TransparentFX

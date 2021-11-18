@@ -54,9 +54,9 @@
 					"XRot" : 0,
 					"YRot" : 0,
 					"ZRot" : 0,
-					"XScale" : 0,
-					"YScale" : 0,
-					"ZScale" : 0
+					"XScale" : 1,
+					"YScale" : 3,
+					"ZScale" : 3
 				}
 			]
 		},
@@ -71,9 +71,9 @@
 					"XRot" : 0,
 					"YRot" : 0,
 					"ZRot" : 0,
-					"XScale" : 0,
-					"YScale" : 0,
-					"ZScale" : 0
+					"XScale" : 4,
+					"YScale" : 1,
+					"ZScale" : 5
 				}
 			]
 		}
@@ -133,9 +133,9 @@
 					"XRot" : 0,
 					"YRot" : 0,
 					"ZRot" : 0,
-					"XScale" : 0,
-					"YScale" : 0,
-					"ZScale" : 0
+					"XScale" : 1,
+					"YScale" : 3,
+					"ZScale" : 3
 				}
 			]
 		},
@@ -150,9 +150,9 @@
 					"XRot" : 0,
 					"YRot" : 0,
 					"ZRot" : 0,
-					"XScale" : 0,
-					"YScale" : 0,
-					"ZScale" : 0
+					"XScale" : 4,
+					"YScale" : 1,
+					"ZScale" : 5
 				}
 			]
 		}

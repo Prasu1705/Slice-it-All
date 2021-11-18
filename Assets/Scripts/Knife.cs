@@ -163,17 +163,27 @@ public class Knife : MonoBehaviour
     public void DestroyPreviousLevelObjects()
     {
 		GameObject[] destroySliceables = GameObject.FindGameObjectsWithTag("Sliceable");
+		GameObject[] destroyCubeSliceable = GameObject.FindGameObjectsWithTag("SliceableCube");
+		GameObject[] destroySphereSliceable = GameObject.FindGameObjectsWithTag("SliceableSphere");
 		GameObject[] destroyGameOverObstacles = GameObject.FindGameObjectsWithTag("GameOver");
 		
 		foreach (GameObject sliceable in destroySliceables)
 		{
-			
+
 			Destroy(sliceable);
 		}
 
 		foreach(GameObject GameoverObstacle in destroyGameOverObstacles)
         {
-			Destroy(GameoverObstacle);
+			GameoverObstacle.SetActive(false);
+        }
+		foreach(GameObject cubeSliceable in destroyCubeSliceable)
+		{ 
+			cubeSliceable.SetActive(false);
+        }
+		foreach(GameObject sphereSliceable in destroySphereSliceable)
+		{ 
+			sphereSliceable.SetActive(false);
         }
 	}
 

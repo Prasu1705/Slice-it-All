@@ -7,7 +7,7 @@ public class SliceListener : MonoBehaviour
     public Slicer slicer;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Sliceable")
+        if(other.tag == "SliceableCube" || other.tag == "SliceableSphere")
         {
             slicer.isTouched = true;
         }

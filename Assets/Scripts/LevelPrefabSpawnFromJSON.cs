@@ -20,6 +20,7 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
     public GameObject cubePrefab;
     public GameObject spherePrefab;
     public GameObject GameOverObstaclePrefab;
+    public GameObject Instantiatedprefab;
 
     public int PrefabId;
     //public GameObject spherePrefab;
@@ -78,9 +79,13 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
             spawnScale.x = (int)prefabData[level][PrefabId][prefabType][i]["XScale"];
             spawnScale.y = (int)prefabData[level][PrefabId][prefabType][i]["YScale"];
             spawnScale.z = (int)prefabData[level][PrefabId][prefabType][i]["ZScale"];
-            GameObject prefab = Instantiate(objectPrefab, spawnPosition, spawnRotation);
-            prefab.transform.localScale += spawnScale;
-
+            Debug.Log(objectPrefab.tag);
+            Instantiatedprefab = ObjectPoolManager.PoolInstance.GetPooledObject(objectPrefab.tag);
+            
+            Instantiatedprefab.transform.position = spawnPosition;
+            Instantiatedprefab.transform.rotation = spawnRotation;
+            Instantiatedprefab.transform.localScale = spawnScale;
+            Instantiatedprefab.SetActive(true);
 
         }
     }
