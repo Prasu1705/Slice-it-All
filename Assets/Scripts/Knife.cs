@@ -9,6 +9,7 @@ public class Knife : MonoBehaviour
 {
 	public GameObject KnifeObject;
 	public GameObject EffectSpawnPoint;
+	public String collisionHitTag;
 
 	public enum KnifeState { Idle, Flip, Hit};
 	public KnifeState knifeState;
@@ -28,8 +29,32 @@ public class Knife : MonoBehaviour
 				
 				break;
             case KnifeState.Hit:
+				if (collisionHitTag == "Ground" && !isGrounded)
+				{
+					Debug.Log("Knife is hitting the ground");
+					isGrounded = true;
+					enableRotation = false;
+					rb.isKinematic = true;
+					gameObject.transform.GetChild(0).transform.GetComponent<MeshCollider>().enabled = false;
 
-                break;
+				}
+				if (collisionHitTag == "Finish")
+				{
+					isTransitioning = true;
+					GameManager.Instance.CURRENTGAMEPLAYSTATE = GameManager.GamePlayState.Win;
+
+				}
+				if (collisionHitTag == "GameOver")
+				{
+
+					isLost = true;
+					isTransitioning = true;
+					enableRotation = false;
+					GameManager.Instance.CURRENTGAMEPLAYSTATE = GameManager.GamePlayState.Lose;
+					//InitialLevelSetup();
+				}
+
+				break;
             default:
                 break;
         }
@@ -68,7 +93,7 @@ public class Knife : MonoBehaviour
 	void Start()
 	{
 		GameManager.Instance.CURRENTGAMEPLAYSTATE = GameManager.GamePlayState.Game;
-		PlayerData.Instance.LEVEL = 1;
+		
 		KnifeObject = PlayerManager.Instance.playerObject;
 		InputManager.Instance.onClick += KnifeFlip;
 		intitalPosition = KnifeObject.transform.position;
@@ -120,32 +145,9 @@ public class Knife : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-		Debug.Log("Collision detected");
-		if (collision.collider.tag == "Ground" && !isGrounded)
-		{
-				Debug.Log("Knife is hitting the ground");
-				isGrounded = true;
-				enableRotation = false;
-				rb.isKinematic = true;
-				gameObject.transform.GetChild(0).transform.GetComponent<MeshCollider>().enabled = false;
-
-		}
-		if (collision.collider.tag == "Finish")
-		{
-				isTransitioning = true;
-				GameManager.Instance.CURRENTGAMEPLAYSTATE = GameManager.GamePlayState.Win;
-
-		}
-		if (collision.collider.tag == "GameOver")
-		{
-			
-			isLost = true;
-			isTransitioning = true;
-			enableRotation = false;
-			GameManager.Instance.CURRENTGAMEPLAYSTATE = GameManager.GamePlayState.Lose;
-			//InitialLevelSetup();
-		}
-
+		collisionHitTag = collision.collider.tag;
+		KNIFESTATE = KnifeState.Hit;
+		
 		
 
 	}
@@ -161,12 +163,18 @@ public class Knife : MonoBehaviour
     public void DestroyPreviousLevelObjects()
     {
 		GameObject[] destroySliceables = GameObject.FindGameObjectsWithTag("Sliceable");
-		//GameObject[] destroyGameOverObstacles = GameObject.FindGameObjectsWithTag("GameOver");
-		//GameObject[] destroyLevelObjects[] = destroySliceables.
+		GameObject[] destroyGameOverObstacles = GameObject.FindGameObjectsWithTag("GameOver");
+		
 		foreach (GameObject sliceable in destroySliceables)
 		{
+			
 			Destroy(sliceable);
 		}
+
+		foreach(GameObject GameoverObstacle in destroyGameOverObstacles)
+        {
+			Destroy(GameoverObstacle);
+        }
 	}
 
 

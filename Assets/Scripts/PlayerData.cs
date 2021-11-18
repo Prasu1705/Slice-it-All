@@ -21,6 +21,7 @@ public class PlayerData : MonoBehaviour
         {
             Destroy(Instance);
         }
+        PlayerData.Instance.LEVEL = 1;
     }
     // Start is called before the first frame update
     void Start()
