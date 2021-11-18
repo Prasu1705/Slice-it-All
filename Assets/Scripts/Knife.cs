@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class Knife : MonoBehaviour
 {
 	public GameObject KnifeObject;
-	
+	public GameObject EffectSpawnPoint;
 
 	public enum KnifeState { Idle, Flip, Hit};
 	public KnifeState knifeState;
@@ -22,6 +22,8 @@ public class Knife : MonoBehaviour
 				rb.isKinematic = true;
 				break;
             case KnifeState.Flip:
+				EffectController.instance.SetPositionAndPlay("Trail", EffectSpawnPoint.transform.position, true);
+				
 				StartCoroutine(KnifeFlipOnClick());
 				
 				break;
@@ -103,8 +105,8 @@ public class Knife : MonoBehaviour
 			yield return new WaitForSeconds(0.2f);
 			
 			enableRotation = true;
-			
-			
+			EffectController.instance.SpawnEffect("Trail", EffectSpawnPoint.transform.position, gameObject.transform);
+
 		}
 
 		

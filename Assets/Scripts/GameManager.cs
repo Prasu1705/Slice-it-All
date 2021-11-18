@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
             case GamePlayState.Restart:
                 {
                     knife.isLost = false;
-                    //knife.isRestarting = true;
+                    knife.isRestarting = true;
                     UIManager.Instance.GameOverCanvas.SetActive(false);
                     knife.InitialLevelSetup();
                 }
