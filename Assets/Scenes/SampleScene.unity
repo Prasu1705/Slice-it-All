@@ -154,13 +154,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemsToPool:
   - objectToPool: {fileID: 9040898006784436627, guid: d1d849bd60785b54582cd21a50f325a3, type: 3}
-    amountToPool: 4
+    amountToPool: 2
     shouldExpand: 1
   - objectToPool: {fileID: 5339129467004618713, guid: 234290ce241fab1479e6a89bd71ce318, type: 3}
-    amountToPool: 4
+    amountToPool: 1
     shouldExpand: 1
   - objectToPool: {fileID: 2618706195765539053, guid: 59edecffb990be8489d746098ce7ff68, type: 3}
-    amountToPool: 4
+    amountToPool: 0
     shouldExpand: 1
   pooledObjects: []
 --- !u!4 &13643003
@@ -1902,7 +1902,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1552996465}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.89, z: 0}
+  m_LocalPosition: {x: 0, y: -2.89, z: -0.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1762628174}
@@ -2054,6 +2054,7 @@ MonoBehaviour:
   KnifeObject: {fileID: 0}
   EffectSpawnPoint: {fileID: 1552996465}
   collisionHitTag: 
+  TrailEffectPoolParent: {fileID: 0}
   knifeState: 0
   rb: {fileID: 0}
   upForce: 15
