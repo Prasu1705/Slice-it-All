@@ -44,7 +44,7 @@ public class LevelPrefabSpawnFromJSON : MonoBehaviour
         jsonString = File.ReadAllText(Application.dataPath + "/Resources/PrefabProperties.json");
         prefabData = JsonMapper.ToObject(jsonString);
         
-        level = "Level " + PlayerData.Instance.LEVEL.ToString();
+        level = "Level " + LevelManager.Instance.LEVEL.ToString();
         //level-no(key value),constvalue=0,levelprefab(key value),cube-prop(dictionary in a array),property (key value)
         Debug.Log(level);
         SpawnPrefab("Cube", cubePrefab);

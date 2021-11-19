@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
     IEnumerator GameCompleted()
     {
         knife.rb.isKinematic = true;
-        PlayerData.Instance.LEVEL += 1;
+        LevelManager.Instance.LEVEL += 1;
         knife.InitialLevelSetup();
         yield return null;
 
